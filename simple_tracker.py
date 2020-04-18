@@ -1,88 +1,85 @@
 import requests
 import time
 from bs4 import BeautifulSoup
-
-
-class APILogger:
-    def print_log(self, msg):
-        print(f"[AmazonAPI] {msg}")
+from selenium.webdriver.common.keys import Keys
+from web_driver_conf import get_web_driver_options
+from web_driver_conf import get_chrome_web_driver
+from web_driver_conf import set_ignore_certificate_error
+from web_driver_conf import set_browser_as_incognito
+from web_driver_conf import set_automation_as_head_less
 
 
 class AmazonAPI:
-    def __init__(self):
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) '
-                          'AppleWebKit/537.11 (KHTML, like Gecko) '
-                          'Chrome/23.0.1271.64 Safari/537.11',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-            'Accept-Encoding': 'none',
-            'Accept-Language': 'en-US,en;q=0.8',
-            'Connection': 'keep-alive'
-        }
-        self.number_of_requests = 0
-        self.logger = APILogger()
+    def __init__(self, search_term):
+        self.base_url = "http://www.amazon.de/"
+        self.search_term = search_term
+        options = get_web_driver_options()
+        # set_automation_as_head_less(options)
+        set_ignore_certificate_error(options)
+        set_browser_as_incognito(options)
+        self.driver = get_chrome_web_driver(options)
+        price = "&rh=p_36%3A20000-50000"
 
-    def __request_url(self, link):
-        for attempt in range(10):
-            try:
-                if self.number_of_requests == 50:
-                    self.logger.print_log(f'Did 50 requests, going to sleep for 15 secs...')
-                    time.sleep(15)
-                    self.number_of_requests = 0
-                response = requests.get(
-                    link,
-                    timeout=4,
-                    headers=self.headers,
-                )
-                self.number_of_requests += 1
-            except requests.HTTPError:
-                self.logger.print_log(f'HTTP error.')
-            except requests.RequestException:
-                self.logger.print_log(f'RequestException.')
-            except Exception as e:
-                self.logger.print_log(f'__request_url error: {e}')
-            else:
-                return response
-        self.logger.print_log(f'ERROR! Max attempts. Raising error')
-        raise
+    def run(self):
+        print("Starting Script...")
+        print(f"Looking for {self.search_term} products...")
+        links = self.get_products_links()
+        if not links:
+            print("Stopped script.")
+            return
+        print(f"Got {len(links)} links to products...")
+        print("Getting info about products...")
 
-    def get_products_links(self, base_url):
-        pass
+    def get_products_links(self):
+        self.driver.get(self.base_url)
+        element = self.driver.find_element_by_xpath('//*[@id="twotabsearchtextbox"]')
+        element.send_keys(self.search_term)
+        element.send_keys(Keys.ENTER)
+        time.sleep(3)  # wait to load page
+        result_list = self.driver.find_elements_by_class_name('s-result-list')
+        links = []
+        try:
+            results = result_list[0].find_elements_by_xpath(
+                "//div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a")
+            links = [link.get_attribute('href') for link in results]
+            return links
+        except Exception as e:
+            print("Didn't get any products...")
+            print(e)
+            return links
 
-    def get_product_info(self, product_link):
-        details = {"name": "", "price": 0, "deal": True, "url": ""}
-        _url = self.shorten_url(product_link)
-        if _url == "":
-            details = None
-        else:
-            page = self.__request_url(_url)
-            soup = BeautifulSoup(page.content, 'html.parser')
-            print('ELO')
-            price = soup.find('span', attrs={'class': 'a-offscreen'})
-            title = soup.find(id="productTitle")
-            price = soup.find(id="priceblock_dealprice")
-            if price is None:
-                price = soup.find(id="priceblock_ourprice")
-                details["deal"] = False
-            if title is not None and price is not None:
-                details["name"] = title.get_text().strip()
-                details["url"] = _url
-            else:
-                return None
-        return details
+    def get_products_info(self, links):
+        products = []
+        for link in links:
+            product = self.get_single_product_info(link)
+        return products
 
-    def shorten_url(self, product_link, *args):
-        """
-        :param product_link:
-        :param args: <-- link args to delete
-        :return:
-        """
-        return product_link
+    def get_single_product_info(self, product_link):
+        self.driver.get(product_link)
+        asin = self.get_asin(product_link)
+        print("ASIN: ", asin)
+        product_short_url = self.shorten_url(asin)
+        print("Short URL: ", product_short_url)
+        print("debug")
+        title = self.driver.find_element_by_id('productTitle').text
+        by = self.driver.find_element_by_id('bylineInfo').text
+        price = self.driver.find_element_by_id('priceblock_ourprice').text
+        # if not price:
+        # self.driver.find_element_by_id('availability').text <- check if ava
+        # if ava:
+        # self.driver.find_element_by_class_name('olp-padding-right').text
+
+        print("Testing this page now")
+
+    @staticmethod
+    def get_asin(product_link):
+        return product_link[product_link.find('/dp/') + 4:product_link.find('/ref')]
+
+    def shorten_url(self, asin):
+        return self.base_url + '/dp/' + asin
 
 
 if __name__ == '__main__':
-    base_link = 'https://www.amazon.de/s?k=playstation+4&i=videogames&rh=n%3A300992%2Cn%3A2583845031&dc&language=en'
-    am = AmazonAPI()
-    x = am.get_product_info('https://www.amazon.de/-/en/dp/B07WHSY2WT/ref=sr_1_1?dchild=1&keywords=playstation+4&qid=1587235149&s=videogames&sr=1-1')
-    print(x)
+    am = AmazonAPI('PS4')
+    am.get_single_product_info(
+        'https://www.amazon.de/-/en/dp/B07WHSY2WT/ref=sr_1_2?dchild=1&keywords=ps4&qid=1587251983&sr=8-2')

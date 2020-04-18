@@ -8,27 +8,27 @@ from web_driver_conf import set_browser_as_incognito
 from web_driver_conf import set_automation_as_head_less
 import json
 import time
-
-URL = "http://www.amazon.de/"
-search_term = 'PS4'
-
-options = get_web_driver_options()
-set_automation_as_head_less(options)
-set_ignore_certificate_error(options)
-set_browser_as_incognito(options)
-driver = get_chrome_web_driver(options)
-
-driver.get(URL)
-
-element = driver.find_element_by_xpath('//*[@id="twotabsearchtextbox"]')
-element.send_keys(search_term)
-element.send_keys(Keys.ENTER)
-time.sleep(3) # wait to load page
-# x = driver.find_elements_by_xpath('//*[@id="search"]/div[1]/div[1]/div/span[4]/div[1]')
-x = driver.find_elements_by_class_name('s-result-list')
-l = x[0].find_elements_by_xpath("//div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a")
-links = [link.get_attribute('href') for link in l]
-print(links)
+#
+# URL = "http://www.amazon.de/"
+# search_term = 'PS4'
+#
+# options = get_web_driver_options()
+# set_automation_as_head_less(options)
+# set_ignore_certificate_error(options)
+# set_browser_as_incognito(options)
+# driver = get_chrome_web_driver(options)
+#
+# driver.get(URL)
+#
+# element = driver.find_element_by_xpath('//*[@id="twotabsearchtextbox"]')
+# element.send_keys(search_term)
+# element.send_keys(Keys.ENTER)
+# time.sleep(3) # wait to load page
+# # x = driver.find_elements_by_xpath('//*[@id="search"]/div[1]/div[1]/div/span[4]/div[1]')
+# x = driver.find_elements_by_class_name('s-result-list')
+# l = x[0].find_elements_by_xpath("//div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a")
+# links = [link.get_attribute('href') for link in l]
+# print(links)
 
 
 # /html/body/div[1]/div[2]/div[1]/div[1]/div/span[4]/div[1]/div[1]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a
@@ -41,3 +41,6 @@ print(links)
 
 #de
 # //*[@id="search"]/div[1]/div[2]/div/span[4]/div[1]/div[2]/div/span/div/div/div[2]/div[2]/div/div[1]/div/div/div[1]/h2/a
+
+link = 'https://www.amazon.de/-/en/dp/B07WHSY2WT/ref=sr_1_2?dchild=1&keywords=PS4&qid=1587251761&sr=8-2'
+link.find('/ref')
