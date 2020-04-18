@@ -1,4 +1,11 @@
 # Amazon Price Tracker
+## FREE Webinar version:
+- Get Link to Website with Items
+- Get Items Links
+- Extract Info about Items To Database
+- Generate Report Based on Info
+
+## Complex Project for PP Module
 1. New Report
 - Get Link to Website with Items
 - Get Items Links
