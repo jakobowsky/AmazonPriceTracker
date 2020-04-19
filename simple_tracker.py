@@ -1,6 +1,4 @@
-import requests
 import time
-from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 from web_driver_conf import get_web_driver_options
 from web_driver_conf import get_chrome_web_driver
