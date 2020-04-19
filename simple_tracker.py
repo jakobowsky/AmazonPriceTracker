@@ -9,6 +9,16 @@ from utils import convert_price_toNumber
 from selenium.common.exceptions import NoSuchElementException
 
 
+# TODO implement price filters while searching
+# TODO save to json
+# TODO Generate report from json
+
+
+class GenerateReport:
+    def __init__(self, file):
+        pass
+
+
 class AmazonAPI:
     def __init__(self, search_term):
         self.base_url = "http://www.amazon.de/"
@@ -30,6 +40,9 @@ class AmazonAPI:
             return
         print(f"Got {len(links)} links to products...")
         print("Getting info about products...")
+        products = self.get_products_info(links)
+        self.driver.quit()
+        return products
 
     def get_products_links(self):
         self.driver.get(self.base_url)
@@ -50,15 +63,20 @@ class AmazonAPI:
             return links
 
     def get_products_info(self, links):
+        asins = self.get_asins(links)
         products = []
-        for link in links:
-            product = self.get_single_product_info(link)
+        for asin in asins:
+            product = self.get_single_product_info(asin)
+            products.append(product)
         return products
 
-    def get_single_product_info(self, product_link):
-        self.driver.get(product_link)
-        asin = self.get_asin(product_link)
+    def get_asins(self, links):
+        return [self.get_asin(link) for link in links]
+
+    def get_single_product_info(self, asin):
         product_short_url = self.shorten_url(asin)
+        self.driver.get(product_short_url)
+        time.sleep(2)
         title = self.get_title()
         seller = self.get_seller()
         price = self.get_price()
@@ -111,11 +129,12 @@ class AmazonAPI:
         return product_link[product_link.find('/dp/') + 4:product_link.find('/ref')]
 
     def shorten_url(self, asin):
-        return self.base_url + 'dp/' + asin
+        return self.base_url + 'dp/' + asin + '?language=en_GB'
 
 
 if __name__ == '__main__':
     am = AmazonAPI('PS4')
-    info = am.get_single_product_info(
-        'https://www.amazon.de/-/en/9408574/dp/B07KMV94JF/ref=sr_1_5?dchild=1&keywords=ps4&qid=1587255153&sr=8-5')
+    # info = am.get_single_product_info('B07WHSY2WT')
+    # print(info)
+    info = am.run()
     print(info)
