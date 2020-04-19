@@ -1,0 +1,124 @@
+{
+  "title": "Iphone",
+  "date": "19/04/2020 04:22:47",
+  "best_item": {
+    "asin": "B075LZ4VQW",
+    "url": "http://www.amazon.de/dp/B075LZ4VQW",
+    "title": "Apple iPhone 8 Plus (64GB) -Space Grey",
+    "seller": "Apple",
+    "price": 529.0
+  },
+  "currency": "\u20ac",
+  "filters": {
+    "min": "575",
+    "max": "850"
+  },
+  "base_link": "http://www.amazon.de/",
+  "products": [
+    {
+      "asin": "B07XRR7N5V",
+      "url": "http://www.amazon.de/dp/B07XRR7N5V",
+      "title": "Apple iPhone 11, 64GB",
+      "seller": "Apple",
+      "price": 705.0
+    },
+    {
+      "asin": "B07XRR2CQ8",
+      "url": "http://www.amazon.de/dp/B07XRR2CQ8",
+      "title": "Apple iPhone 11, 64GB",
+      "seller": "Apple",
+      "price": 699.0
+    },
+    {
+      "asin": "B07XRRBCGK",
+      "url": "http://www.amazon.de/dp/B07XRRBCGK",
+      "title": "Apple iPhone 11, 128gb",
+      "seller": "Apple",
+      "price": 789.0
+    },
+    {
+      "asin": "B07HBDNDJL",
+      "url": "http://www.amazon.de/dp/B07HBDNDJL",
+      "title": "Apple iPhone XR (128GB) - Blue",
+      "seller": "Apple",
+      "price": 664.95
+    },
+    {
+      "asin": "B07XRRT17P",
+      "url": "http://www.amazon.de/dp/B07XRRT17P",
+      "title": "Apple iPhone 11, 64GB",
+      "seller": "Apple",
+      "price": 749.0
+    },
+    {
+      "asin": "B07XRFCP6G",
+      "url": "http://www.amazon.de/dp/B07XRFCP6G",
+      "title": "Apple iPhone 11, 128gb",
+      "seller": "Apple",
+      "price": 815.34
+    },
+    {
+      "asin": "B07XRRB8T3",
+      "url": "http://www.amazon.de/dp/B07XRRB8T3",
+      "title": "Apple iPhone 11, 128gb",
+      "seller": "Apple",
+      "price": 819.0
+    },
+    {
+      "asin": "B07XRQWMRY",
+      "url": "http://www.amazon.de/dp/B07XRQWMRY",
+      "title": "Apple iPhone 11, 128gb",
+      "seller": "Apple",
+      "price": 814.99
+    },
+    {
+      "asin": "B07HB4TJH1",
+      "url": "http://www.amazon.de/dp/B07HB4TJH1",
+      "title": "Apple iPhone XR (64GB) - Black",
+      "seller": "Apple",
+      "price": 715.9
+    },
+    {
+      "asin": "B07XRR786P",
+      "url": "http://www.amazon.de/dp/B07XRR786P",
+      "title": "Apple iPhone 11, 64GB",
+      "seller": "Apple",
+      "price": 749.0
+    },
+    {
+      "asin": "B07N9HM3Z4",
+      "url": "http://www.amazon.de/dp/B07N9HM3Z4",
+      "title": "Apple iPhone XS (Refurbished), 64GB",
+      "seller": "Amazon Renewed",
+      "price": 578.98
+    },
+    {
+      "asin": "B07XRQSQ93",
+      "url": "http://www.amazon.de/dp/B07XRQSQ93",
+      "title": "Apple iPhone 11, 128gb",
+      "seller": "Apple",
+      "price": 814.99
+    },
+    {
+      "asin": "B075LZ4VQW",
+      "url": "http://www.amazon.de/dp/B075LZ4VQW",
+      "title": "Apple iPhone 8 Plus (64GB) -Space Grey",
+      "seller": "Apple",
+      "price": 529.0
+    },
+    {
+      "asin": "B07XRR2CJS",
+      "url": "http://www.amazon.de/dp/B07XRR2CJS",
+      "title": "Apple iPhone 11, 128gb",
+      "seller": "Apple",
+      "price": 813.81
+    },
+    {
+      "asin": "B07XRRNRYV",
+      "url": "http://www.amazon.de/dp/B07XRRNRYV",
+      "title": "Apple iPhone 11, 256GB",
+      "seller": "Apple",
+      "price": 949.9
+    }
+  ]
+}
