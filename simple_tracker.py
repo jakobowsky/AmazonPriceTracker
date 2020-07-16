@@ -57,7 +57,7 @@ class AmazonAPI:
         self.base_url = base_url
         self.search_term = search_term
         options = get_web_driver_options()
-        set_automation_as_head_less(options)
+        # set_automation_as_head_less(options)
         set_ignore_certificate_error(options)
         set_browser_as_incognito(options)
         self.driver = get_chrome_web_driver(options)
@@ -85,6 +85,7 @@ class AmazonAPI:
         element.send_keys(Keys.ENTER)
         time.sleep(2)  # wait to load page
         self.driver.get(f'{self.driver.current_url}{self.price_filter}')
+        print(f"Our url: {self.driver.current_url}")
         time.sleep(2)  # wait to load page
         result_list = self.driver.find_elements_by_class_name('s-result-list')
         links = []
