@@ -12,7 +12,7 @@ Make sure to download correct chromedriver - https://chromedriver.chromium.org/d
 ```buildoutcfg
 python3 -m venv venv
 . venv/bin/activate
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 ## Running Script
 
