@@ -1,4 +1,4 @@
-# Amazon Price Tracker
+# Amazon Price Tracker - https://youtu.be/64FErcFPbgg (video on YouTube)
 - Get Link to Website with Items
 - Get Items Links
 - Extract Info about Items
